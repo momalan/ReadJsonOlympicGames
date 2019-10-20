@@ -63,5 +63,4 @@
 #*.RTF   diff=astextplain
 
 	
-#* linguist-vendored
-#*.js linguist-vendored=false
+#*.* linguist-language=C#
