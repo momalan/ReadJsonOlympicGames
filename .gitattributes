@@ -63,4 +63,4 @@
 #*.RTF   diff=astextplain
 
 	
-#*.JS linguist-language=C#
+#*.JS linguist-language=csharp
