@@ -1,0 +1,16 @@
+﻿@model ReadJsonOlympicGames.Models.UserTable
+@{
+    ViewBag.Title = "EditProfile";
+}
+<div align="center">
+    <h2>EditProfile</h2>
+    @using (Html.BeginForm("EditMyProfileNow", "Home", new { id = Model.id }))
+    {
+        <input type="text" name="firstName" value="@Model.firstName" />
+        <input type="text" name="lastName" value="@Model.lastName" />
+        <input type="text" name="nationality" value="@Model.nationality" />
+        <input type="submit" value="EDIT" />
+    }
+
+</div>
+

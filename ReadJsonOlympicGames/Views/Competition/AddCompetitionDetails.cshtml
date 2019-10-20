@@ -1,0 +1,27 @@
+﻿@model ReadJsonOlympicGames.Models.UsersInserted
+@{
+    ViewBag.Title = "AddCompetitionDetails";
+}
+
+<div align="center">
+    <h2>Competition Details</h2>
+    <h4>@ViewBag.sport</h4>
+    <form action="SaveCompetition" method="post">
+        <input type="text" name="nameOfCompetition" placeholder="Name This Competition" /><br />
+        <input type="text" name="description" placeholder="Describe it in few words" /><br />
+        <input type="text" name="startDate" placeholder="Start Date" /><br />
+        <input type="text" name="time" placeholder="Time" /><br /><br />
+        <input type="hidden" name="sport" value="@ViewBag.sport" />
+        <strong>Choose participiants</strong><br />
+        @foreach (var i in Model.users)
+        {
+            var space = " ";
+            var x = "-";
+            <input type="checkbox" name="@i.id" value="@i.badgeNumber" />@i.firstName@space@i.lastName@space@x@space@i.nationality<br />
+        }
+        <br />
+        <input type="submit" value="Save Competiton" />
+    </form>
+</div>
+
+

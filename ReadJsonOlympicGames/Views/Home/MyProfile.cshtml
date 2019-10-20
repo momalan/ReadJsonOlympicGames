@@ -1,0 +1,32 @@
+﻿@model ReadJsonOlympicGames.Models.UserTable
+@{
+    ViewBag.Title = "UserInfo";
+}
+<div align="center">
+
+    <h2>My Profile</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Surname</td>
+                <td>Nationality</td>
+                <td>Date Of Birth</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.id</td>
+                <td>@Model.firstName</td>
+                <td>@Model.lastName</td>
+                <td>@Model.nationality</td>
+                <td>@Model.dateOfBirth</td>
+                <td>@Html.ActionLink("Edit", "EditMyProfile", "Home", new {id = Model.id }, null)</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+

@@ -1,0 +1,21 @@
+﻿@model ReadJsonOlympicGames.Models.UserTable
+@{
+    ViewBag.Title = "AssignSportsToUser";
+}
+<div align="center">
+    <form action="../AssignSportToThisUser" method="post">
+
+        <h2>AssignSportsToUser</h2>
+        <h3>@Model.firstName @Model.lastName</h3>
+        <input type="hidden" name="badge" value="@Model.badgeNumber" />
+        @foreach (var i in Model.sports)
+        {
+            <input type="checkbox" name="@i.id" value="@i.nameOfSport" />@i.nameOfSport<br />
+        }
+        <br />
+        <input type="submit" value="SUBMIT" />
+    </form>
+    
+</div>
+
+

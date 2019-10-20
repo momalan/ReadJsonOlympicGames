@@ -1,0 +1,98 @@
+﻿@model ReadJsonOlympicGames.Models.UsersInserted
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div align="center">
+
+
+    @if (Model.users == null)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            OGData.Repository _repository = new OGData.Repository();
+            var role = _repository.UserRole(User.Identity.Name);
+            var userEmail = _repository.FindUserByEmail(User.Identity.Name);
+            int id;
+            if (userEmail != null)
+            {
+                id = userEmail.id;
+            }
+            else
+            {
+                var userBadge = _repository.FindUserByBadge(User.Identity.Name);
+                id = userEmail.id;
+            }
+            if (role == "admin")
+            {
+                @Html.ActionLink("My profile", "MyProfile", "Home", new { id = id }, null)<br />
+                @Html.ActionLink("Add File", "AddFile", "Home")<br />
+                @Html.ActionLink("Athletes", "GetAthletes", "Sport")<br />
+                @Html.ActionLink("All users", "GetAllUsers", "Home")<br />
+                @Html.ActionLink("Olympic sports", "GetOlympicSports", "Sport")<br />
+                @Html.ActionLink("Competitions", "GetAllCompetitions", "Competition")<br />
+                @Html.ActionLink("Create Competition", "CreateCompetition", "Competition")<br />
+
+            }
+            else if (role == "athlete")
+            {
+                @Html.ActionLink("My profile", "MyProfile", "Home", new { id = id }, null)<br />
+                @Html.ActionLink("Athletes", "GetAthletes", "Sport")<br />
+                @Html.ActionLink("Competitions", "GetAllCompetitions", "Competition")<br />
+            }
+            else if (role == "volunteer")
+            {
+                @Html.ActionLink("My profile", "MyProfile", "Home", new { id = id }, null)<br />
+                @Html.ActionLink("Olympic sports", "GetOlympicSports", "Sport")<br />
+                @Html.ActionLink("Add my sports", "AssignSports", "Sport", new { id = id }, null)<br />
+                @Html.ActionLink("Competitions", "GetAllCompetitions", "Competition")<br />
+                @Html.ActionLink("Create Competition", "CreateCompetition", "Competition")<br />
+            }
+            else if (role == "none")
+            {
+                @Html.ActionLink("Login", "LoginNow", "Account")
+            }
+        }
+    }
+    else
+    {
+        <p>Theese athlets from file are inserted into databse.</p><br />
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>Surname</td>
+                    <td>Badge Number</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var i in Model.users)
+                {
+                    <tr>
+                        <td>@i.id</td>
+                        <td>@i.firstName</td>
+                        <td>@i.lastName</td>
+                        <td>@i.badgeNumber</td>
+                        <td> @Html.ActionLink("Athlete Info", "UserInfo", "Home", new { id = i.id }, null)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br />
+        if (ViewBag.data != null)
+        {
+            <p>Theese athlets are not inserted, badge number already exist in database.</p>
+            foreach (var i in ViewBag.data)
+            {
+                @i<br />
+            }
+        }
+        else
+        {
+
+        }
+
+    }
+
+</div>

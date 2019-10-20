@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+}
+<div align="center">
+    <h2>Register</h2>
+    <form action="register" method="post">
+        <input type="text" name="email" placeholder="Email" /><br />
+        <input type="text" name="firstName" placeholder="First Name" /><br />
+        <input type="text" name="lastName" placeholder="Last Name" /><br />
+        <input type="text" name="dateOfBirth" placeholder="Date of birth" /><br />
+        <input type="text" name="nationality" placeholder="Nationality" /><br />
+        <input type="password" name="password" placeholder="Password" /><br />
+        <input type="password" name="confirmPassword" placeholder=" Confirm Password" /><br />
+        @ViewBag.error<br />
+        <input type="submit" value="REGISTER" />
+    </form>
+</div>
+
+
+

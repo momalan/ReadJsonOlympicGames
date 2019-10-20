@@ -1,0 +1,28 @@
+﻿@model ReadJsonOlympicGames.Models.Sports
+@{
+    ViewBag.Title = "Sports";
+}
+<div align="center">
+
+    <h2>Sports</h2>
+    <table border="1">
+
+
+        @foreach (var i in Model.sports)
+        {
+            <tr><td>@i.nameOfSport</td><td> @i.description</td></tr>
+        }
+    </table>
+    <br />
+    @if (User.Identity.IsAuthenticated)
+    {
+        OGData.Repository _repository = new OGData.Repository();
+        var role = _repository.UserRole(User.Identity.Name);
+        if (role == "admin")
+        {
+            @Html.ActionLink("Add Sport", "AddSport", "Sport")<br />
+        }
+
+    }
+</div>
+

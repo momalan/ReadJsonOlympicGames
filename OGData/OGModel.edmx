@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="JsonProjectDataBseNewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AthleteResults">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="ResultID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ResultID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AthleteSports">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="SportID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="SportID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Competition">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nameOfCompetition" Type="varchar" MaxLength="50" />
+          <Property Name="description" Type="varchar" MaxLength="100" />
+          <Property Name="startDate" Type="varchar" MaxLength="50" />
+          <Property Name="time" Type="varchar" MaxLength="50" />
+          <Property Name="sportName" Type="nchar" MaxLength="10" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CompetitionAthletes">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="CompetitionID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="CompetitionID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CompetitionResults">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nameOfCompetition" Type="varchar" MaxLength="50" />
+          <Property Name="result" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="OlympicSports">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nameOfSport" Type="varchar" MaxLength="50" />
+          <Property Name="description" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="TableOfUsers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstName" Type="varchar" MaxLength="50" />
+          <Property Name="lastName" Type="varchar" MaxLength="50" />
+          <Property Name="dateOfBirth" Type="varchar" MaxLength="50" />
+          <Property Name="nationality" Type="varchar" MaxLength="50" />
+          <Property Name="badgeNumber" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar(max)" />
+          <Property Name="photo" Type="varchar(max)" />
+          <Property Name="gender" Type="varchar" MaxLength="50" />
+          <Property Name="role" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__AthleteRe__Resul__440B1D61">
+          <End Role="CompetitionResults" Type="Self.CompetitionResults" Multiplicity="1" />
+          <End Role="AthleteResults" Type="Self.AthleteResults" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompetitionResults">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AthleteResults">
+              <PropertyRef Name="ResultID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AthleteRe__UserI__4316F928">
+          <End Role="TableOfUsers" Type="Self.TableOfUsers" Multiplicity="1" />
+          <End Role="AthleteResults" Type="Self.AthleteResults" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableOfUsers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AthleteResults">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AthleteSp__Sport__44FF419A">
+          <End Role="OlympicSports" Type="Self.OlympicSports" Multiplicity="1" />
+          <End Role="AthleteSports" Type="Self.AthleteSports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympicSports">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AthleteSports">
+              <PropertyRef Name="SportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AthleteSp__UserI__3B75D760">
+          <End Role="TableOfUsers" Type="Self.TableOfUsers" Multiplicity="1" />
+          <End Role="AthleteSports" Type="Self.AthleteSports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableOfUsers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AthleteSports">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Competiti__Compe__47DBAE45">
+          <End Role="Competition" Type="Self.Competition" Multiplicity="1" />
+          <End Role="CompetitionAthletes" Type="Self.CompetitionAthletes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competition">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CompetitionAthletes">
+              <PropertyRef Name="CompetitionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Competiti__UserI__46E78A0C">
+          <End Role="TableOfUsers" Type="Self.TableOfUsers" Multiplicity="1" />
+          <End Role="CompetitionAthletes" Type="Self.CompetitionAthletes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableOfUsers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CompetitionAthletes">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="JsonProjectDataBseNewModelStoreContainer">
+          <EntitySet Name="AthleteResults" EntityType="Self.AthleteResults" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AthleteSports" EntityType="Self.AthleteSports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Competition" EntityType="Self.Competition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompetitionAthletes" EntityType="Self.CompetitionAthletes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompetitionResults" EntityType="Self.CompetitionResults" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OlympicSports" EntityType="Self.OlympicSports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableOfUsers" EntityType="Self.TableOfUsers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AthleteRe__Resul__440B1D61" Association="Self.FK__AthleteRe__Resul__440B1D61">
+            <End Role="CompetitionResults" EntitySet="CompetitionResults" />
+            <End Role="AthleteResults" EntitySet="AthleteResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AthleteRe__UserI__4316F928" Association="Self.FK__AthleteRe__UserI__4316F928">
+            <End Role="TableOfUsers" EntitySet="TableOfUsers" />
+            <End Role="AthleteResults" EntitySet="AthleteResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AthleteSp__Sport__44FF419A" Association="Self.FK__AthleteSp__Sport__44FF419A">
+            <End Role="OlympicSports" EntitySet="OlympicSports" />
+            <End Role="AthleteSports" EntitySet="AthleteSports" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AthleteSp__UserI__3B75D760" Association="Self.FK__AthleteSp__UserI__3B75D760">
+            <End Role="TableOfUsers" EntitySet="TableOfUsers" />
+            <End Role="AthleteSports" EntitySet="AthleteSports" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Competiti__Compe__47DBAE45" Association="Self.FK__Competiti__Compe__47DBAE45">
+            <End Role="Competition" EntitySet="Competition" />
+            <End Role="CompetitionAthletes" EntitySet="CompetitionAthletes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Competiti__UserI__46E78A0C" Association="Self.FK__Competiti__UserI__46E78A0C">
+            <End Role="TableOfUsers" EntitySet="TableOfUsers" />
+            <End Role="CompetitionAthletes" EntitySet="CompetitionAthletes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="JsonProjectDataBseNewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Competition">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameOfCompetition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="startDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="time" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sportName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TableOfUsers" Relationship="Self.CompetitionAthletes" FromRole="Competition" ToRole="TableOfUsers" />
+        </EntityType>
+        <EntityType Name="CompetitionResult">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameOfCompetition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="result" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TableOfUsers" Relationship="Self.AthleteResults" FromRole="CompetitionResults" ToRole="TableOfUsers" />
+        </EntityType>
+        <EntityType Name="OlympicSport">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameOfSport" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TableOfUsers" Relationship="Self.AthleteSports" FromRole="OlympicSports" ToRole="TableOfUsers" />
+        </EntityType>
+        <EntityType Name="TableOfUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dateOfBirth" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nationality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="badgeNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CompetitionResults" Relationship="Self.AthleteResults" FromRole="TableOfUsers" ToRole="CompetitionResults" />
+          <NavigationProperty Name="OlympicSports" Relationship="Self.AthleteSports" FromRole="TableOfUsers" ToRole="OlympicSports" />
+          <NavigationProperty Name="Competitions" Relationship="Self.CompetitionAthletes" FromRole="TableOfUsers" ToRole="Competition" />
+        </EntityType>
+        <Association Name="AthleteResults">
+          <End Role="CompetitionResults" Type="Self.CompetitionResult" Multiplicity="*" />
+          <End Role="TableOfUsers" Type="Self.TableOfUser" Multiplicity="*" />
+        </Association>
+        <Association Name="AthleteSports">
+          <End Role="OlympicSports" Type="Self.OlympicSport" Multiplicity="*" />
+          <End Role="TableOfUsers" Type="Self.TableOfUser" Multiplicity="*" />
+        </Association>
+        <Association Name="CompetitionAthletes">
+          <End Role="Competition" Type="Self.Competition" Multiplicity="*" />
+          <End Role="TableOfUsers" Type="Self.TableOfUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="JsonProjectDataBseNewEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Competitions" EntityType="Self.Competition" />
+          <EntitySet Name="CompetitionResults" EntityType="Self.CompetitionResult" />
+          <EntitySet Name="OlympicSports" EntityType="Self.OlympicSport" />
+          <EntitySet Name="TableOfUsers" EntityType="Self.TableOfUser" />
+          <AssociationSet Name="AthleteResults" Association="Self.AthleteResults">
+            <End Role="CompetitionResults" EntitySet="CompetitionResults" />
+            <End Role="TableOfUsers" EntitySet="TableOfUsers" />
+          </AssociationSet>
+          <AssociationSet Name="AthleteSports" Association="Self.AthleteSports">
+            <End Role="OlympicSports" EntitySet="OlympicSports" />
+            <End Role="TableOfUsers" EntitySet="TableOfUsers" />
+          </AssociationSet>
+          <AssociationSet Name="CompetitionAthletes" Association="Self.CompetitionAthletes">
+            <End Role="Competition" EntitySet="Competitions" />
+            <End Role="TableOfUsers" EntitySet="TableOfUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="JsonProjectDataBseNewModelStoreContainer" CdmEntityContainer="JsonProjectDataBseNewEntities">
+          <EntitySetMapping Name="Competitions">
+            <EntityTypeMapping TypeName="JsonProjectDataBseNewModel.Competition">
+              <MappingFragment StoreEntitySet="Competition">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nameOfCompetition" ColumnName="nameOfCompetition" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="sportName" ColumnName="sportName" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompetitionResults">
+            <EntityTypeMapping TypeName="JsonProjectDataBseNewModel.CompetitionResult">
+              <MappingFragment StoreEntitySet="CompetitionResults">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nameOfCompetition" ColumnName="nameOfCompetition" />
+                <ScalarProperty Name="result" ColumnName="result" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OlympicSports">
+            <EntityTypeMapping TypeName="JsonProjectDataBseNewModel.OlympicSport">
+              <MappingFragment StoreEntitySet="OlympicSports">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nameOfSport" ColumnName="nameOfSport" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableOfUsers">
+            <EntityTypeMapping TypeName="JsonProjectDataBseNewModel.TableOfUser">
+              <MappingFragment StoreEntitySet="TableOfUsers">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="dateOfBirth" ColumnName="dateOfBirth" />
+                <ScalarProperty Name="nationality" ColumnName="nationality" />
+                <ScalarProperty Name="badgeNumber" ColumnName="badgeNumber" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AthleteResults" TypeName="JsonProjectDataBseNewModel.AthleteResults" StoreEntitySet="AthleteResults">
+            <EndProperty Name="CompetitionResults">
+              <ScalarProperty Name="id" ColumnName="ResultID" />
+            </EndProperty>
+            <EndProperty Name="TableOfUsers">
+              <ScalarProperty Name="id" ColumnName="UserID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="AthleteSports" TypeName="JsonProjectDataBseNewModel.AthleteSports" StoreEntitySet="AthleteSports">
+            <EndProperty Name="OlympicSports">
+              <ScalarProperty Name="id" ColumnName="SportID" />
+            </EndProperty>
+            <EndProperty Name="TableOfUsers">
+              <ScalarProperty Name="id" ColumnName="UserID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="CompetitionAthletes" TypeName="JsonProjectDataBseNewModel.CompetitionAthletes" StoreEntitySet="CompetitionAthletes">
+            <EndProperty Name="Competition">
+              <ScalarProperty Name="id" ColumnName="CompetitionID" />
+            </EndProperty>
+            <EndProperty Name="TableOfUsers">
+              <ScalarProperty Name="id" ColumnName="UserID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,59 @@
+﻿@model ReadJsonOlympicGames.Models.Competitions
+@{
+    ViewBag.Title = "CompetitionList";
+}
+<div align="center">
+    <h2>Competitions</h2>
+    <table class="table">
+        @foreach (var i in Model.competitions)
+        {
+            <tr>
+                <td>
+                    <strong>@i.nameOfCompetition</strong>
+                </td>
+                <td>
+                    @i.sportName
+                </td>
+                <td>
+                    @i.startDate
+                </td>
+                @{
+                    var listOfCompetitions = i.athletes.ToList();
+                }
+                <td>
+                    @for (int j = 0; j < listOfCompetitions.Count; j++)
+                    {
+                        string v = ",";
+                        if (j + 1 == listOfCompetitions.Count)
+                        {
+                            @listOfCompetitions[j].badgeNumber;
+                        }
+                        else
+                        {
+                            @listOfCompetitions[j].badgeNumber;@v
+                        }
+
+                    }
+                </td>
+                @if (i.status == "ended")
+                {
+                    <td bgcolor="#A9A9A9">Ended</td>
+                }
+                else if (i.status == "started")
+                {
+                    <td bgcolor="#21EF21">Happening</td>
+                }
+                else if (i.status == "toGo")
+                {
+                    <td bgcolor="#FFFF00">To Go</td>
+                }
+                <td>@Html.ActionLink("Competition", "CompetitionDetails", "Competition", new { comName = i.nameOfCompetition }, null)</td>
+                <td>@Html.ActionLink("Delete", "DeleteCompetition", "Competition", new { id = i.id }, null)</td>
+
+
+            </tr>
+        }
+    </table>
+</div>
+
+

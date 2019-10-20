@@ -1,0 +1,19 @@
+﻿@model ReadJsonOlympicGames.Models.Sports
+@{
+    ViewBag.Title = "CreateCompetition";
+}
+
+
+
+<div align="center">
+    <br />
+    <br />
+    <h2>Create Competition</h2>
+    <h2>Choose Competition Sport</h2>
+    <form action="ChosenSport">
+        @foreach (var i in Model.sports)
+        {
+            <input type="checkbox" onChange="this.form.submit()" name="sport" value="@i.nameOfSport" />@i.nameOfSport<br />
+        }
+    </form>
+</div>

@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<div align="center">
+    <br />
+    <br />
+    <h2>Login</h2>
+    @ViewBag.message
+    <form action="login" method="post">
+        <input type="text" name="username" placeholder="Email or Badge Number" /><br />
+        <input type="password" name="password" placeholder="Password" /><br />
+        @ViewBag.error<br />
+        <input type="submit" value="LOGIN" /><br />
+    </form>
+</div>

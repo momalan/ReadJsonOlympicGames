@@ -1,0 +1,159 @@
+﻿@model ReadJsonOlympicGames.Models.CompetitionTable
+@{
+    ViewBag.Title = "CompetitionInfo";
+}
+<div align="center">
+
+    <h2>Competition Info</h2>
+    @if (Model.status == "toGo")
+    {
+        <table border="1" class="table">
+
+            <tr>
+                <td>@Model.nameOfCompetition</td>
+            </tr>
+            <tr>
+                <td>@Model.sportName</td>
+            </tr>
+            <tr>
+                <td>@Model.startDate</td>
+            </tr>
+            <tr>
+                <td>@Model.time</td>
+            </tr>
+        </table>
+        <p>Athletes:</p>
+        <table border="1" class="table">
+            @foreach (var i in Model.athletes)
+            {
+                <tr>
+                    <td>@i.firstName</td>
+                    <td>@i.lastName</td>
+                    <td>@i.nationality</td>
+                </tr>
+
+            }
+        </table>
+        <br />
+        <form action="startCompetition" method="post">
+            <input type="hidden" name="nameOfCompetition" value="@Model.nameOfCompetition" />
+            <button type="submit" class="btn btn-primary btn-lg btn-success">Start competition</button>
+        </form>
+
+    }
+    else if (Model.status == "started")
+    {
+        <table class="table">
+
+            <tr>
+                <td>@Model.nameOfCompetition</td>
+            </tr>
+            <tr>
+                <td>@Model.sportName</td>
+            </tr>
+        </table>
+        <p>Athletes:</p>
+        <table class="table">
+            @foreach (var i in Model.athletes)
+            {
+                <tr>
+                    <td>@i.firstName</td>
+                    <td>@i.lastName</td>
+                    <td>@i.nationality</td>
+                    @if (i.results != null)
+                    {
+                        foreach (var j in i.results)
+                        {
+                            <td><strong>@j.result</strong></td>
+                        }
+                    }
+
+                    @if (i.results == null || i.results.Count < 3)
+                    {
+                        <td>
+                            <form action="athleteJump">
+                                <input type="hidden" name="userId" value="@i.id" />
+                                <input type="hidden" name="comName" value="@Model.nameOfCompetition" />
+                                <input type="submit" value="Jump" />
+                            </form>
+                        </td>
+                    }
+
+                </tr>
+            }
+        </table>
+        <br />
+        <form action="endCompetition" method="post">
+            <input type="hidden" name="nameOfCompetition" value="@Model.nameOfCompetition" />
+            <button type="submit" class="btn btn-primary btn-lg btn-danger">End competition</button>
+        </form>
+
+    }
+    else if (Model.status == "ended")
+    {
+        if (Model.athletesWithMedals != null)
+        {
+            <table border="1" class="table">
+                @{
+                    int x = 1;
+                    foreach (var i in Model.athletesWithMedals)
+                    {
+
+                        <tr>
+                            <td>@i.firstName</td>
+                            <td>@i.lastName</td>
+                            <td>@i.nationality</td>
+                            <td>@i.result</td>
+                            @if (x == 1)
+                            {
+                                <td><img src="https://tokyo2020.org/assets/img/pages/games/medals/olympic-design/photo-04.jpg" height="100" width="100"></td>
+                                <td>GOLD MEDAL</td>
+                            }
+                            else if (x == 2)
+                            {
+                                <td><img src="https://tokyo2020.org/assets/img/pages/games/medals/olympic-design/photo-06.jpg" height="100" width="100"></td>
+                                <td>SILVER MEDAL</td>
+                            }
+                            else if (x == 3)
+                            {
+                                <td><img src="https://tokyo2020.org/assets/img/pages/games/medals/olympic-design/photo-08.jpg" height="100" width="100"></td>
+                                <td>BRONZE MEDAL</td>
+                            }
+                        </tr>
+                        x++;
+                    }
+                }
+
+            </table>
+        }
+
+        <table border="1" class="table">
+
+            <tr>
+                <td>@Model.nameOfCompetition</td>
+            </tr>
+            <tr>
+                <td>@Model.sportName</td>
+            </tr>
+            <tr>
+                <td>@Model.startDate</td>
+            </tr>
+            <tr>
+                <td>@Model.time</td>
+            </tr>
+        </table>
+        <p>Athletes:</p>
+        <table border="1" class="table">
+            @foreach (var i in Model.athletes)
+            {
+                <tr>
+                    <td>@i.firstName</td>
+                    <td>@i.lastName</td>
+                    <td>@i.nationality</td>
+                </tr>
+            }
+        </table>
+    }
+
+</div>
+

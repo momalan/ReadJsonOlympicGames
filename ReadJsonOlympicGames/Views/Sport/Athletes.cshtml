@@ -1,0 +1,49 @@
+﻿@model ReadJsonOlympicGames.Models.UsersInserted
+@{
+    ViewBag.Title = "Athletes";
+}
+
+
+<div align="center">
+
+    <h2>Athletes</h2>
+    <table style="width:100%" border="1">
+
+
+        @foreach (var i in Model.users)
+        {
+            <tr>
+                <td>@i.firstName</td>
+                <td> @i.lastName</td>
+                <td>@i.nationality</td>
+                <td>@i.badgeNumber</td>
+                <td> <img src="@i.photo" width="50" height="50" /></td>
+                <td>
+                    @{
+                        var listOfSports = i.sports.ToList();
+                    }
+
+                    @for (int j = 0; j < listOfSports.Count; j++)
+                    {
+                        string v = ",";
+                        if (j + 1 == listOfSports.Count)
+                        {
+                            @listOfSports[j].nameOfSport;
+                        }
+                        else
+                        {
+                            @listOfSports[j].nameOfSport;@v
+                        }
+
+                    }
+                </td>
+                <td> @Html.ActionLink("Athlete Info", "UserInfo", "Home", new { id = i.id }, null)</td>
+                <td> @Html.ActionLink("Delete", "DeleteAthlete", "Sport", new { id = i.id }, null)</td>
+                <td> @Html.ActionLink("Assign sports", "AssignSports", "Sport", new { id = i.id }, null)</td>
+            </tr>
+        }
+    </table>
+    <br />
+    @Html.ActionLink("Add Sport", "AddSport", "Sport")<br />
+</div>
+

@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "AddSport";
+}
+    <div align="center">
+        <h2>Add Sport</h2>
+        <form action="AddSportToDb" method="post">
+            <input type="text" name="nameOfSport" placeholder="Name of Sport" /><br />
+            <input type="text" name="description" placeholder="Description" /><br />
+            @ViewBag.error<br />
+            <input type="submit" value="Add" /><br />
+        </form>
+    </div>
+
