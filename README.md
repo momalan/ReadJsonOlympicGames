@@ -4,7 +4,7 @@
 Main functionalities of this solution:
 - Register as volunteer
 - Login as admin, volunteer and athelete
-- Upload jsonData.json file - it will read a file and store all athletes(from file) to database.
+- Upload `jsonData.json` file - it will read a file and store all athletes(from file) to database.
 - View and delete athletes
 - Add Olympic Sports
 - Assign sports to athletes
