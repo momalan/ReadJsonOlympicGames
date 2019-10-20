@@ -17,11 +17,9 @@ To login as **admin** you have to use `admin` for username and `admin` for passw
 
 To login as **athlete** you have to use *badge number* as a username and *birth date* as a password.
 
-You have to update filePath in the UploadFile method in HomeController. There is static filePath.
-
 System requirements: 
 - import database `JsonProjectDataBseNew.bacpac` to Microsoft SQL Server Management Studio.
 - update connection strings inside `web.config` and `app.config` files - `data source="your sql server name"`.
-- update filePath in the UploadFile method in HomeController. There is static filePath.
+- update filePath in the *UploadFile method* in *HomeController*. There is static filePath.
 - load the solution using `ReadJsonOlympicGames.sln` into Visual Studio and run.
 
